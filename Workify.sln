@@ -3,7 +3,37 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.35027.167
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Workify.Api", "Workify.Api\Workify.Api.csproj", "{EB15A5E6-C8C6-4E90-9CF3-A94CA2618656}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Workify.Test", "Workify.Test\Workify.Test.csproj", "{E0A644BC-E330-4131-B74F-97E74950887D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Workify.Core", "Workify.Core\Workify.Core.csproj", "{4FF5029C-623F-400F-A9BC-8DB27101468B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Workify.Infrastructure", "Workify.Infrastructure\Workify.Infrastructure.csproj", "{E641B6E0-005E-4507-91F0-A7A50FC55505}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EB15A5E6-C8C6-4E90-9CF3-A94CA2618656}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB15A5E6-C8C6-4E90-9CF3-A94CA2618656}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB15A5E6-C8C6-4E90-9CF3-A94CA2618656}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB15A5E6-C8C6-4E90-9CF3-A94CA2618656}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E0A644BC-E330-4131-B74F-97E74950887D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E0A644BC-E330-4131-B74F-97E74950887D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E0A644BC-E330-4131-B74F-97E74950887D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E0A644BC-E330-4131-B74F-97E74950887D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4FF5029C-623F-400F-A9BC-8DB27101468B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4FF5029C-623F-400F-A9BC-8DB27101468B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4FF5029C-623F-400F-A9BC-8DB27101468B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4FF5029C-623F-400F-A9BC-8DB27101468B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E641B6E0-005E-4507-91F0-A7A50FC55505}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E641B6E0-005E-4507-91F0-A7A50FC55505}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E641B6E0-005E-4507-91F0-A7A50FC55505}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E641B6E0-005E-4507-91F0-A7A50FC55505}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
