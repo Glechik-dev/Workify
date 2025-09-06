@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Workify.Core\Workify.Core.csproj" />
+    <ProjectReference Include="..\Workify.Infrastructure\Workify.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>

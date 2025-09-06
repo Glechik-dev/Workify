@@ -1,6 +1,6 @@
 @Workify.Api_HostAddress = http://localhost:5155
 
-GET {{Workify.Api_HostAddress}}/weatherforecast/
+GET {{Workify.Api_HostAddress}}/api/Auth/
 Accept: application/json
 
 ###
