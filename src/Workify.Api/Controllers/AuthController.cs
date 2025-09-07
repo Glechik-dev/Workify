@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Workify.Api.Contracts;
 
 namespace Workify.Api.Controllers
 {
@@ -9,9 +10,10 @@ namespace Workify.Api.Controllers
     {
         [Route("login")]
         [HttpGet]
-        public IActionResult login() 
+        public IActionResult login(LoginContract loginContract)
         {
-            return Ok();
+            Console.WriteLine();
+            return Ok("");
         }
 
         [Route("sign-up")]
