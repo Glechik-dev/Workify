@@ -4,6 +4,7 @@ using Workify.Api.Contracts;
 
 namespace Workify.Api.Controllers
 {
+
     [Route("api/auth")]
     [ApiController]
     public class AuthController : ControllerBase
@@ -12,8 +13,7 @@ namespace Workify.Api.Controllers
         [HttpGet]
         public IActionResult login(LoginContract loginContract)
         {
-            Console.WriteLine();
-            return Ok("");
+            return Ok("hi goi");
         }
 
         [Route("sign-up")]
@@ -30,4 +30,5 @@ namespace Workify.Api.Controllers
             return Ok();
         }
     }
+
 }
