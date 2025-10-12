@@ -13,13 +13,14 @@ namespace Workify.Api.Controllers
         [HttpGet]
         public IActionResult login(LoginContract loginContract)
         {
-            return Ok("hi goi");
+            return Ok();
         }
 
         [Route("sign-up")]
         [HttpGet]
         public IActionResult signUp()
         {
+            
             return Ok();
         }
 
