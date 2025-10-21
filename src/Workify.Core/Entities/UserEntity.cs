@@ -1,11 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Workify.Core.Entities
 {
-    public class UserEntitiy
+    public class UserEntity
     {
 
-        private UserEntitiy(string fullName, string phoneNumber, string email, string password) 
+        private UserEntity(string fullName, string phoneNumber, string email, string password) 
         {
             Id = Guid.NewGuid();
             FullName = fullName;
@@ -14,6 +15,7 @@ namespace Workify.Core.Entities
             Password = password;
         }
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; private set; }
         [Required]
         public string FullName { get; private set; }
@@ -28,9 +30,9 @@ namespace Workify.Core.Entities
         [Required]
         public UserSettingsEntitiy UserSettings { get; private set; }
 
-        public static UserEntitiy Create(string fullName, string phoneNubmer, string email, string password)
+        public static UserEntity Create(string fullName, string phoneNubmer, string email, string password)
         {
-            return new UserEntitiy(fullName, phoneNubmer, email, password);
+            return new UserEntity(fullName, phoneNubmer, email, password);
         }
     }
 }

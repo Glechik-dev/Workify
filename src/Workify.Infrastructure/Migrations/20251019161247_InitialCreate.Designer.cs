@@ -12,7 +12,7 @@ using Workify.Infrastructure.DBContext;
 namespace Workify.Infrastructure.Migrations
 {
     [DbContext(typeof(MyDBContext))]
-    [Migration("20251012161207_InitialCreate")]
+    [Migration("20251019161247_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />

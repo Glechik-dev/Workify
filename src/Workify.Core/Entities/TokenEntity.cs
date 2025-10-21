@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 
 namespace Workify.Core.Entities
@@ -11,12 +12,13 @@ namespace Workify.Core.Entities
             RefreshToken = refreshToken;
         }
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; private set; }
         [Required]
         public string RefreshToken { get; private set; }
         public Guid UserId { get; private set; }
         [Required]
-        public UserEntitiy User {  get; private set; }
+        public UserEntity User {  get; private set; }
 
 
         public static TokenEntity Create(string refreshToken)

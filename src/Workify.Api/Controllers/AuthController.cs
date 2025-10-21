@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Workify.Api.Contracts;
+using Workify.Application.DTO;
+using Workify.Application.Services;
 
 namespace Workify.Api.Controllers
 {
@@ -9,16 +11,30 @@ namespace Workify.Api.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
+        private readonly JwtTokenService _tokenService;
+
+        public AuthController(JwtTokenService tokenService)
+        {
+            _tokenService = tokenService;
+        }
+
+
         [Route("login")]
         [HttpGet]
-        public IActionResult login(LoginContract loginContract)
+        public async Task<IActionResult> login(LoginContract loginContract)
         {
-            return Ok();
+            Tokens tokens = _tokenService.GetTokens(new UserDTO()
+            {
+                Id = "1",
+                Name = "Egor",
+                Email = "exapmle@gmail.com"
+            } );
+            return Ok(tokens);
         }
 
         [Route("sign-up")]
         [HttpGet]
-        public IActionResult signUp()
+        public IActionResult registration()
         {
             
             return Ok();

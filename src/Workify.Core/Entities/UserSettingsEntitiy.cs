@@ -1,25 +1,27 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Workify.Core.Entities
 {
-    public class UserSettingsEntitiy
+    public class UserSettingsEntity
     {
 
-        private UserSettingsEntitiy(bool isActive) 
+        private UserSettingsEntity(bool isActive) 
         {
            Id = Guid.NewGuid();
            IsActive = isActive; 
         }
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; private set; }
         public bool IsActive { get; private set; }
         public Guid UserId { get; private set; }
         [Required]
-        public UserEntitiy User { get; private set; }
+        public UserEntity User { get; private set; }
 
-        public static UserSettingsEntitiy Create(bool isActive)
+        public static UserSettingsEntity Create(bool isActive)
         {
-            return new UserSettingsEntitiy(isActive);
+            return new UserSettingsEntity(isActive);
         }
     }
 }
