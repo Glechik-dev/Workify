@@ -25,7 +25,7 @@ namespace Workify.Application.Services
             _config = config;
         }
 
-        public bool ValidateAccessToken(string accesToken)
+        public bool VerifyAccessToken(string accesToken)
         {
             try
             {
@@ -41,7 +41,7 @@ namespace Workify.Application.Services
             }
         }
 
-        public bool ValidateRefreshToken(string refreshToken)
+        public bool VerifyRefreshToken(string refreshToken)
         {
             try
             {
