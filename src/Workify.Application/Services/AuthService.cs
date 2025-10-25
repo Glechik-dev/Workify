@@ -13,13 +13,17 @@ namespace Workify.Application.Services
         private readonly UserRepository _userRepository;
         private readonly UserSettingsRepository _userSettingsRepository;
         private readonly PasswordService _passwordService;
+        private readonly RoleRepository _roleRepository;
+        private readonly UserRoleRepository _userRoleRepository;
 
         public AuthService(
             JwtTokenService jwtTokenService,
             TokenRepository tokenRepository, 
             UserRepository userRepository,
             UserSettingsRepository userSettingsRepository,
-            PasswordService passwordService
+            PasswordService passwordService,
+            RoleRepository roleRepository,
+            UserRoleRepository userRoleRepository
             )
         { 
             _jwtTokenService = jwtTokenService;
@@ -27,6 +31,8 @@ namespace Workify.Application.Services
             _userRepository = userRepository;
             _userSettingsRepository = userSettingsRepository;
             _passwordService = passwordService;
+            _roleRepository = roleRepository;
+            _userRoleRepository = userRoleRepository;
         }
 
         public async Task<Tokens?> Login(LoginDTO login)
@@ -43,7 +49,11 @@ namespace Workify.Application.Services
                 { 
                     throw new PasswordDontMatchException();
                 }
-                return new Tokens();
+
+                Tokens tokens = _jwtTokenService.GetTokens(new UserDTO { Id = user.Id, Name = user.FirstName, Email = user.Email });
+                await _tokenRepository.UpdateToken(user.Token.Id, tokens.RefreshToken);
+
+                return tokens;
             } catch (Exception ex) 
             {
                 Console.WriteLine(ex);
@@ -51,7 +61,7 @@ namespace Workify.Application.Services
             }
         }
 
-        public async Task<Tokens> Registration(RegistrationDTO registration)
+        public async Task<Tokens?> Registration(RegistrationDTO registration)
         {
             try 
             {
@@ -66,13 +76,27 @@ namespace Workify.Application.Services
                 }
 
                 string hashPassword = _passwordService.HashPassword(UserEntity.Create(registration.FirstName, registration.SecondName, registration.PhoneNumber, registration.Email, registration.Password), registration.Password);
-                
 
+                UserEntity newUser = UserEntity.Create(registration.FirstName, registration.SecondName, registration.PhoneNumber, registration.Email, hashPassword);
 
+                UserSettingsEntity userSettings = UserSettingsEntity.Create(false);
+                newUser.UserSettings = userSettings;
+
+                Tokens tokens = _jwtTokenService.GetTokens(new UserDTO { Id = newUser.Id, Name = newUser.FirstName, Email = newUser.Email });
+                TokenEntity token = TokenEntity.Create(tokens.RefreshToken);
+                newUser.Token = token;
+
+                RoleEntity role = await _roleRepository.FindRoleByName("JobSeeker");
+                await _userRoleRepository.AddRoleToUser(newUser, role);
+
+                await _userRepository.AddUser(newUser);
+
+                return tokens;
             }
             catch (Exception ex) 
             {
                 Console.WriteLine(ex);
+                return null;
             }
 
 

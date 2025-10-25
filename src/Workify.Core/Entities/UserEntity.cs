@@ -20,22 +20,22 @@ namespace Workify.Core.Entities
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid Id { get; private set; }
+        public Guid Id { get; set; }
         [Required]
-        public string FirstName { get; private set; }
+        public string FirstName { get; set; }
 
-        public string? SecondName { get; private set; }
+        public string? SecondName { get; set; }
 
 
         [Required]
-        public string PhoneNumber { get; private set; }
+        public string PhoneNumber { get; set; }
         [Required]
-        public string Email { get; private set; }
+        public string Email { get; set; }
         [Required]
-        public string Password { get; private set; }
-        public TokenEntity Token { get; private set; }
-        public UserSettingsEntity UserSettings { get; private set; }
-        public ICollection<UserRoleEntity> UserRoles { get; private set; } = new List<UserRoleEntity>();
+        public string Password { get; set; }
+        public TokenEntity Token { get; set; }
+        public UserSettingsEntity UserSettings { get; set; }
+        public ICollection<UserRoleEntity> UserRoles { get; set; } = new List<UserRoleEntity>();
 
 
         public static UserEntity Create(string firstName, string secondName, string phoneNumber, string email, string password)

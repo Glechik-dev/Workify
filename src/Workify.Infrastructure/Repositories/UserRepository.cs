@@ -28,7 +28,7 @@ namespace Workify.Infrastructure.Repositories
             return await _context.User.FirstOrDefaultAsync((entiti) => entiti.Email == email);
         }
 
-        public async void AddUser(UserEntity user)
+        public async Task AddUser(UserEntity user)
         {
             await _context.User.AddAsync(user);
             await _context.SaveChangesAsync();

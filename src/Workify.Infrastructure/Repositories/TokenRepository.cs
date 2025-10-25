@@ -18,11 +18,9 @@ namespace Workify.Infrastructure.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task UpdateToken(string tokenId, string refreshToken)
+        public async Task UpdateToken(Guid tokenId, string refreshToken)
         {
-            if (!Guid.TryParse(tokenId, out Guid guTokenId))
-                return;
-            await _context.Token.Where((entity) => entity.Id == guTokenId).ExecuteUpdateAsync((b) => b.SetProperty((u) => u.RefreshToken, refreshToken));
+            await _context.Token.Where((entity) => entity.Id == tokenId).ExecuteUpdateAsync((b) => b.SetProperty((u) => u.RefreshToken, refreshToken));
         }
     }
 }
