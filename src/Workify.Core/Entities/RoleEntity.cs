@@ -11,6 +11,9 @@ namespace Workify.Core.Entities
             RoleName = roleName;
         }
 
+
+        public RoleEntity() { }
+
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }

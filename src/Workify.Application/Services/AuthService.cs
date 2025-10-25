@@ -29,7 +29,7 @@ namespace Workify.Application.Services
             _passwordService = passwordService;
         }
 
-        public async Task<Tokens> Login(LoginDTO login)
+        public async Task<Tokens?> Login(LoginDTO login)
         {
            try
             {
@@ -43,16 +43,17 @@ namespace Workify.Application.Services
                 { 
                     throw new PasswordDontMatchException();
                 }
-
+                return new Tokens();
             } catch (Exception ex) 
             {
                 Console.WriteLine(ex);
+                return null;
             }
         }
 
         public async Task<Tokens> Registration(RegistrationDTO registration)
         {
-
+            return new Tokens();
         }
     }
 }

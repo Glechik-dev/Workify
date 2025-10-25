@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Workify.Infrastructure.DBContext;
@@ -11,9 +12,11 @@ using Workify.Infrastructure.DBContext;
 namespace Workify.Infrastructure.Migrations
 {
     [DbContext(typeof(MyDBContext))]
-    partial class MyDBContextModelSnapshot : ModelSnapshot
+    [Migration("20251025144104_SecondMigration")]
+    partial class SecondMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -35,23 +38,6 @@ namespace Workify.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Role");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("59691be7-f9f7-497a-b8ef-2b7124ecbcd2"),
-                            RoleName = "Admin"
-                        },
-                        new
-                        {
-                            Id = new Guid("0bd8d139-3847-4cd4-b6f3-35df6da5971a"),
-                            RoleName = "JoobSeeker"
-                        },
-                        new
-                        {
-                            Id = new Guid("d2f1a3c6-95da-421a-9c87-d59d41ac353e"),
-                            RoleName = "Employer"
-                        });
                 });
 
             modelBuilder.Entity("Workify.Core.Entities.TokenEntity", b =>
