@@ -15,6 +15,9 @@ namespace Workify.Core.Entities
             Email = email;
             Password = password;
         }
+
+
+
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; private set; }
@@ -35,9 +38,9 @@ namespace Workify.Core.Entities
         public ICollection<UserRoleEntity> UserRoles { get; private set; } = new List<UserRoleEntity>();
 
 
-        public static UserEntity Create(string firstName, string secondName, string phoneNubmer, string email, string password)
+        public static UserEntity Create(string firstName, string secondName, string phoneNumber, string email, string password)
         {
-            return new UserEntity(firstName, secondName, phoneNubmer, email, password);
+            return new UserEntity(firstName, secondName, phoneNumber, email, password);
         }
     }
 }

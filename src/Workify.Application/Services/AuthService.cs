@@ -53,7 +53,29 @@ namespace Workify.Application.Services
 
         public async Task<Tokens> Registration(RegistrationDTO registration)
         {
-            return new Tokens();
+            try 
+            {
+                UserEntity? user = await _userRepository.GetUserByEmail(registration.Email);
+                if(user != null)
+                {
+                    throw new UserAlreadyExistsException();
+                }
+                if(registration.Password != registration.ConfirmPassword)
+                {
+                    throw new PasswordDontMatchException();
+                }
+
+                string hashPassword = _passwordService.HashPassword(UserEntity.Create(registration.FirstName, registration.SecondName, registration.PhoneNumber, registration.Email, registration.Password), registration.Password);
+                
+
+
+            }
+            catch (Exception ex) 
+            {
+                Console.WriteLine(ex);
+            }
+
+
         }
     }
 }
