@@ -30,13 +30,10 @@ namespace Workify.Core.Entities
         public string Email { get; private set; }
         [Required]
         public string Password { get; private set; }
-        [Required]
         public TokenEntity Token { get; private set; }
-        [Required]
         public UserSettingsEntity UserSettings { get; private set; }
+        public ICollection<UserRoleEntity> UserRoles { get; private set; } = new List<UserRoleEntity>();
 
-        [Required]
-        public UserRoleEntity UserRole { get; private set; }
 
         public static UserEntity Create(string firstName, string secondName, string phoneNubmer, string email, string password)
         {

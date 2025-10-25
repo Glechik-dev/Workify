@@ -6,19 +6,17 @@ namespace Workify.Core.Entities
     public class UserRoleEntity
     {
 
-        private UserRoleEntity() 
-        { 
-            
-        }
-
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }
 
-        [Required]
+
+        [Required] 
+        public Guid UserId { get; set; }
         public UserEntity User { get; set; }
 
         [Required]
-        public UserRoleEntity Role { get; set; }
+        public Guid RoleId { get; set; }
+        public RoleEntity Role { get; set; }
     }
 }

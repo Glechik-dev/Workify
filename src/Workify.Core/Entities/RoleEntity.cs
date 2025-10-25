@@ -18,8 +18,7 @@ namespace Workify.Core.Entities
         [Required]
         public string RoleName { get; set; }
 
-        [Required]
-        public UserRoleEntity UserRole { get; set; }
+        public ICollection<UserRoleEntity> UserRoles { get; set; } = new List<UserRoleEntity>();
 
         public static RoleEntity Create(string roleName)
         {
