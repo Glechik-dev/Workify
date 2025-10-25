@@ -28,7 +28,7 @@ namespace Workify.Core.Entities
         [Required]
         public TokenEntity Token { get; private set; }
         [Required]
-        public UserSettingsEntitiy UserSettings { get; private set; }
+        public UserSettingsEntity UserSettings { get; private set; }
 
         public static UserEntity Create(string fullName, string phoneNubmer, string email, string password)
         {

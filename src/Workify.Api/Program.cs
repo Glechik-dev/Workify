@@ -41,6 +41,7 @@ builder.Services.AddAuthorization();
 builder.Services.AddDbContext<MyDBContext>((options) => options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddScoped<JwtTokenService>();
+builder.Services.AddScoped<PasswordService>();
 builder.Services.AddScoped<AuthService>();
 
 

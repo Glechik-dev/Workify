@@ -21,7 +21,7 @@ namespace Workify.Api.Controllers
 
         [Route("login")]
         [HttpGet]
-        public async Task<IActionResult> login(LoginContract loginContract)
+        public async Task<IActionResult> Login(LoginContract loginContract)
         {
             Tokens tokens = _tokenService.GetTokens(new UserDTO()
             {
@@ -34,7 +34,7 @@ namespace Workify.Api.Controllers
 
         [Route("sign-up")]
         [HttpGet]
-        public IActionResult registration()
+        public async Task<IActionResult> Registration(RegistrationContract registrationContract)
         {
             
             return Ok();
@@ -42,7 +42,7 @@ namespace Workify.Api.Controllers
 
         [Route("log-out")]
         [HttpGet]
-        public IActionResult logOut()
+        public IActionResult LogOut()
         {
             return Ok();
         }

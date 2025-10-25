@@ -18,9 +18,14 @@ namespace Workify.Infrastructure.Repositories
             return await _context.User.ToListAsync();
         }
 
-        public async Task<UserEntity> GetUserById(string id)
+        public async Task<UserEntity?> GetUserById(string id)
         {
             return await _context.User.FindAsync(id);
+        }
+
+        public async Task<UserEntity?> GetUserByEmail(string email)
+        {
+            return await _context.User.FirstOrDefaultAsync((entiti) => entiti.Email == email);
         }
 
         public async void AddUser(UserEntity user)
