@@ -13,30 +13,33 @@ namespace Workify.Application.Services
         private readonly JobSeekerRepository _jobSeekerRepository;
         private readonly PasswordService _passwordService;
         private readonly RoleRepository _roleRepository;
-        private readonly JobSeekerRoleRepository _jobSeekerRoleRepository;
+        private readonly UserRoleRepository _userRoleRepository;
+        private readonly UserRepository _userRepository;
 
         public AuthService(
             JwtTokenService jwtTokenService,
             TokenRepository tokenRepository, 
-            JobSeekerRepository JobSeekerRepository,
+            JobSeekerRepository jobSeekerRepository,
             PasswordService passwordService,
             RoleRepository roleRepository,
-            JobSeekerRoleRepository jobSeekerRoleRepository
+            UserRoleRepository userRoleRepository,
+            UserRepository userRepository
             )
         { 
             _jwtTokenService = jwtTokenService;
             _tokenRepository = tokenRepository;
-            _jobSeekerRepository = _jobSeekerRepository;
+            _jobSeekerRepository = jobSeekerRepository;
             _passwordService = passwordService;
             _roleRepository = roleRepository;
-            _jobSeekerRoleRepository = jobSeekerRoleRepository;
+            _userRoleRepository = userRoleRepository;
+            _userRepository = userRepository;
         }
 
         public async Task<Tokens?> Login(LoginDTO login)
         {
            try
             {
-                JobSeekerEntity? user = await _jobSeekerRepository.GetUserByEmail(login.Email);
+                UserEntity? user = await _userRepository.FindUserByEmail(login.Email);
                 if (user == null)
                 {
                     throw new UserNotExistsException();
@@ -53,16 +56,15 @@ namespace Workify.Application.Services
                 return tokens;
             } catch (Exception ex) 
             {
-                Console.WriteLine(ex);
-                return null;
+                throw ex;
             }
         }
 
-        public async Task<Tokens?> Registration(RegistrationDTO registration)
+        public async Task<Tokens?> RegistrationJobSeeker(RegistrationDTO registration)
         {
             try 
             {
-                JobSeekerEntity? user = await _jobSeekerRepository.GetUserByEmail(registration.Email);
+                UserEntity? user = await _userRepository.FindUserByEmail(registration.Email);
                 if(user != null)
                 {
                     throw new UserAlreadyExistsException();
@@ -72,35 +74,36 @@ namespace Workify.Application.Services
                     throw new PasswordDontMatchException();
                 }
 
-                JobSeekerEntity newUser = JobSeekerEntity.Create(registration.FirstName, registration.SecondName, registration.PhoneNumber, registration.Email, registration.Password);
+                UserEntity newUser = UserEntity.Create(registration.FirstName, registration.SecondName, registration.PhoneNumber, registration.Email, registration.Password);
+             
+                JobSeekerEntity jobSeeker = new JobSeekerEntity();
 
                 string hashPassword = _passwordService.HashPassword(newUser, registration.Password);
 
                 newUser.Password = hashPassword;
-  
 
                 JobSeekerSettingsEntity userSettings = JobSeekerSettingsEntity.Create(false);
-                newUser.JobSeekerSettings = userSettings;
+                jobSeeker.JobSeekerSettings = userSettings;
 
-                Tokens tokens = _jwtTokenService.GetTokens(new UserDTO { Id = newUser.Id, Name = newUser.FirstName, Email = newUser.Email });
+                Tokens tokens = _jwtTokenService.GetTokens(new UserDTO { Id = jobSeeker.Id, Name = newUser.FirstName, Email = newUser.Email });
                 TokenEntity token = TokenEntity.Create(tokens.RefreshToken);
                 newUser.Token = token;
 
-                RoleEntity role = await _roleRepository.FindRoleByName("JoobSeeker");
+                RoleEntity role = await _roleRepository.FindRoleByName("JobSeeker");
                 if (role == null)
                 {
                     throw new Exception("Role 'User' not found");
                 }
-                await _jobSeekerRepository.AddUser(newUser);
-                await _jobSeekerRoleRepository.AddRoleToUser(newUser, role);
+                jobSeeker.User = newUser;
+                await _jobSeekerRepository.AddJobSeeker(jobSeeker);
+                await _userRoleRepository.AddRoleToUser(newUser, role);
 
 
                 return tokens;
             }
             catch (Exception ex) 
             {
-                Console.WriteLine(ex);
-                return null;
+                throw ex;
             }
 
 

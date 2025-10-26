@@ -13,24 +13,19 @@ namespace Workify.Infrastructure.Repositories
             _context = context;
         }
 
-        public async Task<IEnumerable<JobSeekerEntity>> GetUsers()
+        public async Task<IEnumerable<JobSeekerEntity>> GetJobSeeker()
         {
             return await _context.JobSeeker.ToListAsync();
         }
 
-        public async Task<JobSeekerEntity?> GetUserById(string id)
+        public async Task<JobSeekerEntity?> GetJobSeekerById(string id)
         {
             return await _context.JobSeeker.FindAsync(id);
         }
 
-        public async Task<JobSeekerEntity?> GetUserByEmail(string email)
+        public async Task AddJobSeeker(JobSeekerEntity jobSeeker)
         {
-            return await _context.JobSeeker.FirstOrDefaultAsync((entiti) => entiti.Email == email);
-        }
-
-        public async Task AddUser(JobSeekerEntity user)
-        {
-            await _context.JobSeeker.AddAsync(user);
+            await _context.JobSeeker.AddAsync(jobSeeker);
             await _context.SaveChangesAsync();
 
         }

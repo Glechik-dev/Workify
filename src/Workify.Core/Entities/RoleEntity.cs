@@ -21,7 +21,7 @@ namespace Workify.Core.Entities
         [Required]
         public string RoleName { get; set; }
 
-        public ICollection<JobSeekerRoleEntity> JobSeekerRoles { get; set; } = new List<JobSeekerRoleEntity>();
+        public ICollection<UserRoleEntity> JobSeekerRoles { get; set; } = new List<UserRoleEntity>();
 
         public static RoleEntity Create(string roleName)
         {

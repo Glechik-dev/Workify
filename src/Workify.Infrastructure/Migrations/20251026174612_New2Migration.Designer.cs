@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Workify.Infrastructure.DBContext;
@@ -11,9 +12,11 @@ using Workify.Infrastructure.DBContext;
 namespace Workify.Infrastructure.Migrations
 {
     [DbContext(typeof(MyDBContext))]
-    partial class MyDBContextModelSnapshot : ModelSnapshot
+    [Migration("20251026174612_New2Migration")]
+    partial class New2Migration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -93,17 +96,17 @@ namespace Workify.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("61713cdd-0863-46f9-880b-e58df84dc131"),
+                            Id = new Guid("b5c80f88-86c4-4e2f-92de-10ad09b6435a"),
                             RoleName = "Admin"
                         },
                         new
                         {
-                            Id = new Guid("529149c1-58ac-4fc7-9325-6309e2100dd0"),
+                            Id = new Guid("cfb4f096-a6da-4da3-9503-ba0a320f74d8"),
                             RoleName = "JobSeeker"
                         },
                         new
                         {
-                            Id = new Guid("2a686a95-9aa5-4996-bd8e-86aba0e2ab7d"),
+                            Id = new Guid("0bbfb741-f856-4a2a-9758-02b251d14267"),
                             RoleName = "Employer"
                         });
                 });
@@ -177,7 +180,7 @@ namespace Workify.Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UserRole");
+                    b.ToTable("JobSeekerRole");
                 });
 
             modelBuilder.Entity("Workify.Core.Entities.EmployerEntity", b =>

@@ -15,10 +15,10 @@ namespace Workify.Core.Entities
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; private set; }
         [Required]
-        public string RefreshToken { get; private set; }
-        public Guid JobSeekerId { get; private set; }
+        public string RefreshToken { get; set; }
+        public Guid UserId { get; private set; }
         [Required]
-        public JobSeekerEntity JobSeeker {  get; private set; }
+        public UserEntity User {  get; private set; }
 
 
         public static TokenEntity Create(string refreshToken)

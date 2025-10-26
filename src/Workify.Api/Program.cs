@@ -54,11 +54,12 @@ builder.Services.AddDbContext<MyDBContext>((options) => options.UseNpgsql(builde
 builder.Services.AddScoped<JobSeekerRepository>();
 builder.Services.AddScoped<RoleRepository>();
 builder.Services.AddScoped<TokenRepository>();
-builder.Services.AddScoped<JobSeekerRoleRepository>();
+builder.Services.AddScoped<UserRoleRepository>();
 builder.Services.AddScoped<JobSeekerRepository >();
+builder.Services.AddScoped<UserRepository>();
 
 builder.Services.AddScoped<JwtTokenService>();
-builder.Services.AddScoped<IPasswordHasher<JobSeekerEntity>, PasswordHasher<JobSeekerEntity>>();
+builder.Services.AddScoped<IPasswordHasher<UserEntity>, PasswordHasher<UserEntity>>();
 builder.Services.AddScoped<PasswordService>();
 builder.Services.AddScoped<AuthService>();
  

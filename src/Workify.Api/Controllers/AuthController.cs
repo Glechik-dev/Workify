@@ -35,14 +35,14 @@ namespace Workify.Api.Controllers
             return Ok(tokens);
         }
 
-        [Route("registration")]
+        [Route("registration/jobseeker")]
         [HttpPost]
-        public async Task<IActionResult> Registration(RegistrationContract registrationContract)
+        public async Task<IActionResult> RegistrationJobSeeker(RegistrationContract registrationContract)
         {
             try
             {
                 RegistrationDTO registrationDTO = new RegistrationDTO { FirstName = registrationContract.FirstName, SecondName = registrationContract.SecondName, Email = registrationContract.Email, PhoneNumber = registrationContract.PhoneNumber, Password = registrationContract.Password, ConfirmPassword = registrationContract.ConfirmPassword };
-                Tokens tokens = await _authService.Registration(registrationDTO);
+                Tokens tokens = await _authService.RegistrationJobSeeker(registrationDTO);
                 if(tokens != null)
                 {
                     Response.Cookies.Append("access_token", tokens.AccessToken, new CookieOptions

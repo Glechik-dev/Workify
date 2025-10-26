@@ -5,18 +5,18 @@ namespace Workify.Application.Services
 {
     public class PasswordService
     {
-        private readonly IPasswordHasher<JobSeekerEntity> _passwordHasher;
-        public PasswordService(IPasswordHasher<JobSeekerEntity> passwordHasher) 
+        private readonly IPasswordHasher<UserEntity> _passwordHasher;
+        public PasswordService(IPasswordHasher<UserEntity> passwordHasher) 
         { 
             _passwordHasher = passwordHasher;
         }
 
-        public string HashPassword(JobSeekerEntity user, string password)
+        public string HashPassword(UserEntity user, string password)
         {
             return _passwordHasher.HashPassword(user, password);
         }
 
-        public bool VerifyPassword(JobSeekerEntity user,string hashedPassword, string password)
+        public bool VerifyPassword(UserEntity user,string hashedPassword, string password)
         {
             var result = _passwordHasher.VerifyHashedPassword(user, hashedPassword, password);
             return result == PasswordVerificationResult.Success;

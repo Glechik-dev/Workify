@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Workify.Core.Entities
 {
-    public class JobSeekerRoleEntity
+    public class UserRoleEntity
     {
 
         [Key]
@@ -12,8 +12,8 @@ namespace Workify.Core.Entities
 
 
         [Required] 
-        public Guid JobSeekerId { get; set; }
-        public JobSeekerEntity JobSeeker { get; set; }
+        public Guid UserId { get; set; }
+        public UserEntity User { get; set; }
 
         [Required]
         public Guid RoleId { get; set; }
