@@ -61,7 +61,7 @@ namespace Workify.Infrastructure.Migrations
                     b.ToTable("Token");
                 });
 
-            modelBuilder.Entity("Workify.Core.Entities.UserEntity", b =>
+            modelBuilder.Entity("Workify.Core.Entities.JobSeekerEntity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -91,7 +91,7 @@ namespace Workify.Infrastructure.Migrations
                     b.ToTable("User");
                 });
 
-            modelBuilder.Entity("Workify.Core.Entities.UserRoleEntity", b =>
+            modelBuilder.Entity("Workify.Core.Entities.JobSeekerRoleEntity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -112,7 +112,7 @@ namespace Workify.Infrastructure.Migrations
                     b.ToTable("UserRole");
                 });
 
-            modelBuilder.Entity("Workify.Core.Entities.UserSettingsEntity", b =>
+            modelBuilder.Entity("Workify.Core.Entities.JobSeekerSettingsEntity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -134,7 +134,7 @@ namespace Workify.Infrastructure.Migrations
 
             modelBuilder.Entity("Workify.Core.Entities.TokenEntity", b =>
                 {
-                    b.HasOne("Workify.Core.Entities.UserEntity", "User")
+                    b.HasOne("Workify.Core.Entities.JobSeekerEntity", "User")
                         .WithOne("Token")
                         .HasForeignKey("Workify.Core.Entities.TokenEntity", "UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -143,7 +143,7 @@ namespace Workify.Infrastructure.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Workify.Core.Entities.UserRoleEntity", b =>
+            modelBuilder.Entity("Workify.Core.Entities.JobSeekerRoleEntity", b =>
                 {
                     b.HasOne("Workify.Core.Entities.RoleEntity", "Role")
                         .WithMany("UserRoles")
@@ -151,7 +151,7 @@ namespace Workify.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Workify.Core.Entities.UserEntity", "User")
+                    b.HasOne("Workify.Core.Entities.JobSeekerEntity", "User")
                         .WithMany("UserRoles")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -162,11 +162,11 @@ namespace Workify.Infrastructure.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Workify.Core.Entities.UserSettingsEntity", b =>
+            modelBuilder.Entity("Workify.Core.Entities.JobSeekerSettingsEntity", b =>
                 {
-                    b.HasOne("Workify.Core.Entities.UserEntity", "User")
+                    b.HasOne("Workify.Core.Entities.JobSeekerEntity", "User")
                         .WithOne("UserSettings")
-                        .HasForeignKey("Workify.Core.Entities.UserSettingsEntity", "UserId")
+                        .HasForeignKey("Workify.Core.Entities.JobSeekerSettingsEntity", "UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -178,7 +178,7 @@ namespace Workify.Infrastructure.Migrations
                     b.Navigation("UserRoles");
                 });
 
-            modelBuilder.Entity("Workify.Core.Entities.UserEntity", b =>
+            modelBuilder.Entity("Workify.Core.Entities.JobSeekerEntity", b =>
                 {
                     b.Navigation("Token")
                         .IsRequired();

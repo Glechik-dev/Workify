@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Workify.Api.Contracts;
 using Workify.Application.DTO;
@@ -11,11 +11,11 @@ namespace Workify.Api.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
-        private readonly JwtTokenService _tokenService;
+        private readonly AuthService _authService;
 
-        public AuthController(JwtTokenService tokenService)
+        public AuthController(AuthService authService)
         {
-            _tokenService = tokenService;
+            _authService = authService;
         }
 
 
@@ -23,21 +23,45 @@ namespace Workify.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> Login(LoginContract loginContract)
         {
-            Tokens tokens = _tokenService.GetTokens(new UserDTO()
+            LoginDTO loginDTO = new LoginDTO { Email = loginContract.Email, Password = loginContract.Password  };
+            Tokens tokens = await _authService.Login(loginDTO);
+            Response.Cookies.Append("access_token", tokens.AccessToken, new CookieOptions
             {
-                Id = "1",
-                Name = "Egor",
-                Email = "exapmle@gmail.com"
-            } );
+                HttpOnly = true,
+                Secure = true,
+                SameSite = SameSiteMode.None,
+                Expires = DateTimeOffset.UtcNow.AddMinutes(60)
+            });
             return Ok(tokens);
         }
 
-        [Route("sign-up")]
-        [HttpGet]
+        [Route("registration")]
+        [HttpPost]
         public async Task<IActionResult> Registration(RegistrationContract registrationContract)
         {
-            
-            return Ok();
+            try
+            {
+                RegistrationDTO registrationDTO = new RegistrationDTO { FirstName = registrationContract.FirstName, SecondName = registrationContract.SecondName, Email = registrationContract.Email, PhoneNumber = registrationContract.PhoneNumber, Password = registrationContract.Password, ConfirmPassword = registrationContract.ConfirmPassword };
+                Tokens tokens = await _authService.Registration(registrationDTO);
+                if(tokens != null)
+                {
+                    Response.Cookies.Append("access_token", tokens.AccessToken, new CookieOptions
+                    {
+                        HttpOnly = true,
+                        Secure = true,
+                        SameSite = SameSiteMode.None,
+                        Expires = DateTimeOffset.UtcNow.AddMinutes(60)
+                    });
+                } else
+                {
+                    Console.WriteLine("Token not found");
+                    throw new Exception("");
+                }
+                return Ok("User was registrated");
+            } catch (Exception ex) 
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [Route("log-out")]
@@ -45,6 +69,14 @@ namespace Workify.Api.Controllers
         public IActionResult LogOut()
         {
             return Ok();
+        }
+
+        [Authorize]
+        [Route("check")]
+        [HttpGet]
+        public IActionResult check()
+        {
+            return Ok("ok");
         }
     }
 

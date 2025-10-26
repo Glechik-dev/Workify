@@ -3,17 +3,17 @@ using Workify.Infrastructure.DBContext;
 
 namespace Workify.Infrastructure.Repositories
 {
-    public class UserRoleRepository
+    public class JobSeekerRoleRepository
     {
         private readonly MyDBContext _context;
-        public UserRoleRepository(MyDBContext context) 
+        public JobSeekerRoleRepository(MyDBContext context) 
         {
             _context = context;
         }
 
-        public async Task AddRoleToUser(UserEntity user, RoleEntity role) 
+        public async Task AddRoleToUser(JobSeekerEntity jobSeeker, RoleEntity role) 
         {
-            await _context.UserRole.AddAsync(new UserRoleEntity { User = user, Role = role });
+            await _context.JobSeekerRole.AddAsync(new JobSeekerRoleEntity { JobSeeker = jobSeeker, Role = role });
             await _context.SaveChangesAsync();
         }
     }

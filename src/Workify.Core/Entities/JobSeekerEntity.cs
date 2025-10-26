@@ -3,10 +3,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Workify.Core.Entities
 {
-    public class UserEntity
+    public class JobSeekerEntity
     {
 
-        private UserEntity(string firstName, string secondName, string phoneNumber, string email, string password) 
+        private JobSeekerEntity(string firstName, string secondName, string phoneNumber, string email, string password) 
         {
             Id = Guid.NewGuid();
             FirstName = firstName;
@@ -34,13 +34,13 @@ namespace Workify.Core.Entities
         [Required]
         public string Password { get; set; }
         public TokenEntity Token { get; set; }
-        public UserSettingsEntity UserSettings { get; set; }
-        public ICollection<UserRoleEntity> UserRoles { get; set; } = new List<UserRoleEntity>();
+        public JobSeekerSettingsEntity JobSeekerSettings { get; set; }
+        public ICollection<JobSeekerRoleEntity> JobSeekerRoles { get; set; } = new List<JobSeekerRoleEntity>();
 
 
-        public static UserEntity Create(string firstName, string secondName, string phoneNumber, string email, string password)
+        public static JobSeekerEntity Create(string firstName, string secondName, string phoneNumber, string email, string password)
         {
-            return new UserEntity(firstName, secondName, phoneNumber, email, password);
+            return new JobSeekerEntity(firstName, secondName, phoneNumber, email, password);
         }
     }
 }

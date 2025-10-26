@@ -11,22 +11,22 @@ namespace Workify.Infrastructure.DBContext
         }
 
         public MyDBContext() { }
-        public DbSet<UserEntity> User {  get; set; }
-        public DbSet<UserSettingsEntity> UserSettings { get; set; }
+        public DbSet<JobSeekerEntity> JobSeeker {  get; set; }
+        public DbSet<JobSeekerSettingsEntity> JobSeekerSettings { get; set; }
         public DbSet<TokenEntity> Token { get; set; }
         public DbSet<RoleEntity> Role { get; set; }
-        public DbSet<UserRoleEntity> UserRole { get; set; }
+        public DbSet<JobSeekerRoleEntity> JobSeekerRole { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<UserEntity>().HasOne((e) => e.UserSettings).WithOne((e) => e.User).HasForeignKey<UserSettingsEntity>((e) => e.UserId).IsRequired();
-            modelBuilder.Entity<UserEntity>().HasOne((e) => e.Token).WithOne((e) => e.User).HasForeignKey<TokenEntity>((e) => e.UserId).IsRequired();
-            modelBuilder.Entity<UserEntity>().HasMany((e) => e.UserRoles).WithOne((e) => e.User).HasForeignKey((e) => e.UserId).IsRequired();
-            modelBuilder.Entity<RoleEntity>().HasMany((e) => e.UserRoles).WithOne((e) => e.Role).HasForeignKey((e) => e.RoleId).IsRequired();
+            modelBuilder.Entity<JobSeekerEntity>().HasOne((e) => e.JobSeekerSettings).WithOne((e) => e.JobSeeker).HasForeignKey<JobSeekerSettingsEntity>((e) => e.JobSeekerId).IsRequired();
+            modelBuilder.Entity<JobSeekerEntity>().HasOne((e) => e.Token).WithOne((e) => e.JobSeeker).HasForeignKey<TokenEntity>((e) => e.JobSeekerId).IsRequired();
+            modelBuilder.Entity<JobSeekerEntity>().HasMany((e) => e.JobSeekerRoles).WithOne((e) => e.JobSeeker).HasForeignKey((e) => e.JobSeekerId).IsRequired();
+            modelBuilder.Entity<RoleEntity>().HasMany((e) => e.JobSeekerRoles).WithOne((e) => e.Role).HasForeignKey((e) => e.RoleId).IsRequired();
 
             modelBuilder.Entity<RoleEntity>().HasData(
                 new RoleEntity { Id = Guid.NewGuid(), RoleName = "Admin" },
-                new RoleEntity { Id = Guid.NewGuid(), RoleName = "JoobSeeker" },
+                new RoleEntity { Id = Guid.NewGuid(), RoleName = "JobSeeker" },
                 new RoleEntity { Id = Guid.NewGuid(), RoleName = "Employer" }
                 );
 

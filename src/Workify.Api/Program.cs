@@ -1,9 +1,12 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Workify.Application.Services;
+using Workify.Core.Entities;
 using Workify.Infrastructure.DBContext;
+using Workify.Infrastructure.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,6 +27,14 @@ builder.Services.AddCors(options =>
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
 {
+    options.Events = new JwtBearerEvents
+    {
+        OnMessageReceived = context =>
+        {
+            context.Token = context.Request.Cookies["access_token"];
+            return Task.CompletedTask;
+        }
+    };
     options.SaveToken = true;
     options.TokenValidationParameters = new TokenValidationParameters
     {
@@ -40,10 +51,17 @@ builder.Services.AddAuthorization();
 
 builder.Services.AddDbContext<MyDBContext>((options) => options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+builder.Services.AddScoped<JobSeekerRepository>();
+builder.Services.AddScoped<RoleRepository>();
+builder.Services.AddScoped<TokenRepository>();
+builder.Services.AddScoped<JobSeekerRoleRepository>();
+builder.Services.AddScoped<JobSeekerRepository >();
+
 builder.Services.AddScoped<JwtTokenService>();
+builder.Services.AddScoped<IPasswordHasher<JobSeekerEntity>, PasswordHasher<JobSeekerEntity>>();
 builder.Services.AddScoped<PasswordService>();
 builder.Services.AddScoped<AuthService>();
-
+ 
 
 var app = builder.Build();
 

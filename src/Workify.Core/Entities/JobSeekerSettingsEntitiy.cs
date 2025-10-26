@@ -3,10 +3,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Workify.Core.Entities
 {
-    public class UserSettingsEntity
+    public class JobSeekerSettingsEntity
     {
 
-        private UserSettingsEntity(bool isActive) 
+        private JobSeekerSettingsEntity(bool isActive) 
         {
            Id = Guid.NewGuid();
            IsActive = isActive; 
@@ -15,13 +15,13 @@ namespace Workify.Core.Entities
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; private set; }
         public bool IsActive { get; private set; }
-        public Guid UserId { get; private set; }
+        public Guid JobSeekerId { get; private set; }
         [Required]
-        public UserEntity User { get; private set; }
+        public JobSeekerEntity JobSeeker { get; private set; }
 
-        public static UserSettingsEntity Create(bool isActive)
+        public static JobSeekerSettingsEntity Create(bool isActive)
         {
-            return new UserSettingsEntity(isActive);
+            return new JobSeekerSettingsEntity(isActive);
         }
     }
 }

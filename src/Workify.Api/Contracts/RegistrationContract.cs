@@ -7,7 +7,7 @@ namespace Workify.Api.Contracts
         [Required]
         [MinLength(3)]
         [MaxLength(20)]
-        public string FistName { get; set; }
+        public string FirstName { get; set; }
         [Required]
         [MinLength(3)]
         [MaxLength(20)]

@@ -12,15 +12,15 @@ using Workify.Infrastructure.DBContext;
 namespace Workify.Infrastructure.Migrations
 {
     [DbContext(typeof(MyDBContext))]
-    [Migration("20251025145448_ThirdMigration")]
-    partial class ThirdMigration
+    [Migration("20251026103455_FourMigration")]
+    partial class FourMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "9.0.9")
+                .HasAnnotation("ProductVersion", "9.0.10")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
@@ -42,17 +42,17 @@ namespace Workify.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("59691be7-f9f7-497a-b8ef-2b7124ecbcd2"),
+                            Id = new Guid("d5dfb876-7bb1-4d4d-9439-cd405d9d2ba3"),
                             RoleName = "Admin"
                         },
                         new
                         {
-                            Id = new Guid("0bd8d139-3847-4cd4-b6f3-35df6da5971a"),
+                            Id = new Guid("2b28d356-b123-458f-b922-9d057d621c82"),
                             RoleName = "JoobSeeker"
                         },
                         new
                         {
-                            Id = new Guid("d2f1a3c6-95da-421a-9c87-d59d41ac353e"),
+                            Id = new Guid("93dde8e7-710c-4ed7-a6e5-4f836d14b53b"),
                             RoleName = "Employer"
                         });
                 });

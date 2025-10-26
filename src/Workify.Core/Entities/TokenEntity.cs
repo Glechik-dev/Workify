@@ -16,9 +16,9 @@ namespace Workify.Core.Entities
         public Guid Id { get; private set; }
         [Required]
         public string RefreshToken { get; private set; }
-        public Guid UserId { get; private set; }
+        public Guid JobSeekerId { get; private set; }
         [Required]
-        public UserEntity User {  get; private set; }
+        public JobSeekerEntity JobSeeker {  get; private set; }
 
 
         public static TokenEntity Create(string refreshToken)
