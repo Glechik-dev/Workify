@@ -1,14 +1,14 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Workify.Core.Entities
+namespace Workify.Core.Entities.JobSeeker
 {
     public class JobSeekerSettingsEntity
     {
 
-        private JobSeekerSettingsEntity() 
+        private JobSeekerSettingsEntity()
         {
-           Id = Guid.NewGuid();
+            Id = Guid.NewGuid();
         }
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

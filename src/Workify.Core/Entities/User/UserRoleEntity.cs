@@ -1,7 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Workify.Core.Entities.Other;
 
-namespace Workify.Core.Entities
+namespace Workify.Core.Entities.User
 {
     public class UserRoleEntity
     {
@@ -11,7 +12,7 @@ namespace Workify.Core.Entities
         public Guid Id { get; set; }
 
 
-        [Required] 
+        [Required]
         public Guid UserId { get; set; }
         public UserEntity User { get; set; }
 

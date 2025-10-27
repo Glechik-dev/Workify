@@ -6,11 +6,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Workify.Core.Entities
+namespace Workify.Core.Entities.Employer
 {
     public class EmployerSettingsEntity
     {
-        private EmployerSettingsEntity() 
+        private EmployerSettingsEntity()
         {
         }
 

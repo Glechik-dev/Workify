@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Workify.Core.Entities;
+using Workify.Core.Entities.User;
 using Workify.Infrastructure.DBContext;
 
 namespace Workify.Infrastructure.Repositories

@@ -1,13 +1,13 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 
-namespace Workify.Core.Entities
+namespace Workify.Core.Entities.User
 {
     public class UserSettingsEntity
     {
 
-        private UserSettingsEntity(bool isActive) 
-        { 
+        private UserSettingsEntity(bool isActive)
+        {
             IsActive = isActive;
         }
 

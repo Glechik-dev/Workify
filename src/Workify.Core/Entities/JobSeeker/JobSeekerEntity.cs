@@ -1,7 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Workify.Core.Entities.User;
 
-namespace Workify.Core.Entities
+namespace Workify.Core.Entities.JobSeeker
 {
     public class JobSeekerEntity
     {

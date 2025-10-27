@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Workify.Application.Services;
-using Workify.Core.Entities;
+using Workify.Core.Entities.User;
 using Workify.Infrastructure.DBContext;
 using Workify.Infrastructure.Repositories;
 

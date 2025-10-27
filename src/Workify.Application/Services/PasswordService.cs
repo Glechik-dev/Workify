@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using Workify.Core.Entities;
+using Workify.Core.Entities.User;
 
 namespace Workify.Application.Services
 {

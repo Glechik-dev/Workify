@@ -1,12 +1,13 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Workify.Core.Entities.User;
 
-namespace Workify.Core.Entities
+namespace Workify.Core.Entities.Other
 {
     public class RoleEntity
     {
 
-        private RoleEntity(string roleName) 
+        private RoleEntity(string roleName)
         {
             RoleName = roleName;
         }

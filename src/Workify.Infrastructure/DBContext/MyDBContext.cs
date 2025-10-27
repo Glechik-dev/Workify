@@ -1,5 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Workify.Core.Entities;
+using Workify.Core.Entities.Employer;
+using Workify.Core.Entities.JobSeeker;
+using Workify.Core.Entities.Other;
+using Workify.Core.Entities.User;
 
 namespace Workify.Infrastructure.DBContext
 {

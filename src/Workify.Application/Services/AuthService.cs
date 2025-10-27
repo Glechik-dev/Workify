@@ -1,6 +1,9 @@
 ﻿
 using Workify.Application.DTO;
-using Workify.Core.Entities;
+using Workify.Core.Entities.Employer;
+using Workify.Core.Entities.JobSeeker;
+using Workify.Core.Entities.Other;
+using Workify.Core.Entities.User;
 using Workify.Core.Exceptions;
 using Workify.Infrastructure.Repositories;
 

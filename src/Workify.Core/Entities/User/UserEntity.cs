@@ -5,8 +5,11 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Workify.Core.Entities.Employer;
+using Workify.Core.Entities.JobSeeker;
+using Workify.Core.Entities.Other;
 
-namespace Workify.Core.Entities
+namespace Workify.Core.Entities.User
 {
     public class UserEntity
     {
