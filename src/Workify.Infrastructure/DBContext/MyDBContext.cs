@@ -13,9 +13,11 @@ namespace Workify.Infrastructure.DBContext
         public MyDBContext() { }
 
         public DbSet<UserEntity> User {  get; set; }
+        public DbSet<UserSettingsEntity> UserSettings { get; set; }
         public DbSet<JobSeekerEntity> JobSeeker {  get; set; }
         public DbSet<JobSeekerSettingsEntity> JobSeekerSettings { get; set; }
         public DbSet<EmployerEntity> Employer { get; set; }
+        public DbSet<EmployerSettingsEntity> EmployerSettings { get; set; }
         public DbSet<TokenEntity> Token { get; set; }
         public DbSet<RoleEntity> Role { get; set; }
         public DbSet<UserRoleEntity> UserRole { get; set; }
@@ -26,7 +28,9 @@ namespace Workify.Infrastructure.DBContext
             modelBuilder.Entity<UserEntity>().HasOne((e) => e.Token).WithOne((e) => e.User).HasForeignKey<TokenEntity>((e) => e.UserId).IsRequired();
             modelBuilder.Entity<UserEntity>().HasMany((e) => e.UserRoles).WithOne((e) => e.User).HasForeignKey((e) => e.UserId).IsRequired();
             modelBuilder.Entity<UserEntity>().HasOne((e) => e.Employer).WithOne((e) => e.User).HasForeignKey<EmployerEntity>((e) => e.UserId).IsRequired();
+            modelBuilder.Entity<UserEntity>().HasOne((e) => e.UserSettings).WithOne((e) => e.User).HasForeignKey<UserSettingsEntity>((e) => e.UserId).IsRequired();
             modelBuilder.Entity<JobSeekerEntity>().HasOne((e) => e.JobSeekerSettings).WithOne((e) => e.JobSeeker).HasForeignKey<JobSeekerSettingsEntity>((e) => e.JobSeekerId).IsRequired();
+            modelBuilder.Entity<EmployerEntity>().HasOne((e) => e.EmployerSettings).WithOne((e) => e.Employer).HasForeignKey<EmployerSettingsEntity>((e) => e.EmployerId).IsRequired();
             modelBuilder.Entity<RoleEntity>().HasMany((e) => e.JobSeekerRoles).WithOne((e) => e.Role).HasForeignKey((e) => e.RoleId).IsRequired();
 
             modelBuilder.Entity<RoleEntity>().HasData(

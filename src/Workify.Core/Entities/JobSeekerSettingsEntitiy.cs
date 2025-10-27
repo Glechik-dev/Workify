@@ -6,22 +6,20 @@ namespace Workify.Core.Entities
     public class JobSeekerSettingsEntity
     {
 
-        private JobSeekerSettingsEntity(bool isActive) 
+        private JobSeekerSettingsEntity() 
         {
            Id = Guid.NewGuid();
-           IsActive = isActive; 
         }
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; private set; }
-        public bool IsActive { get; private set; }
         public Guid JobSeekerId { get; private set; }
         [Required]
         public JobSeekerEntity JobSeeker { get; private set; }
 
-        public static JobSeekerSettingsEntity Create(bool isActive)
+        public static JobSeekerSettingsEntity Create()
         {
-            return new JobSeekerSettingsEntity(isActive);
+            return new JobSeekerSettingsEntity();
         }
     }
 }

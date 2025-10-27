@@ -17,5 +17,9 @@ namespace Workify.Core.Entities
         public UserEntity User { get; set; } = default!;
         public JobSeekerSettingsEntity JobSeekerSettings { get; set; }
 
+        static public JobSeekerEntity Create()
+        {
+            return new JobSeekerEntity();
+        }
     }
 }

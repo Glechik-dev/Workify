@@ -12,17 +12,17 @@ namespace Workify.Infrastructure.Repositories
             _context = context;
         }
 
-        public async Task<JobSeekerSettingsEntity> GetSettingsById(string userId)
+        public async Task<JobSeekerSettingsEntity> GetSettingsById(string jobSeekerId)
         {
-            if (!Guid.TryParse(userId, out Guid guUserId))
+            if (!Guid.TryParse(jobSeekerId, out Guid gujobSeekerId))
                 return null;
 
-            return await _context.JobSeekerSettings.FirstOrDefaultAsync(entity => entity.JobSeekerId == guUserId);
+            return await _context.JobSeekerSettings.FirstOrDefaultAsync(entity => entity.JobSeekerId == gujobSeekerId);
         }
 
-        public async Task AddSettingToUser(JobSeekerSettingsEntity userSettings)
+        public async Task AddSettingToJobSeeker(JobSeekerSettingsEntity jobSeekerSettings)
         {
-            await _context.JobSeekerSettings.AddAsync(userSettings);
+            await _context.JobSeekerSettings.AddAsync(jobSeekerSettings);
             await _context.SaveChangesAsync();
         }
     }

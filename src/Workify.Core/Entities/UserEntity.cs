@@ -44,6 +44,8 @@ namespace Workify.Core.Entities
         public JobSeekerEntity? JobSeeker { get; set; }
         public EmployerEntity? Employer { get; set; }
 
+        public UserSettingsEntity UserSettings { get; set; }
+
         public static UserEntity Create(string firstName, string secondName, string phoneNumber, string email, string password)
         {
             return new UserEntity(firstName, secondName, phoneNumber, email, password);

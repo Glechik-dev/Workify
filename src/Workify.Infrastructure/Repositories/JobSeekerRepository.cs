@@ -13,7 +13,7 @@ namespace Workify.Infrastructure.Repositories
             _context = context;
         }
 
-        public async Task<IEnumerable<JobSeekerEntity>> GetJobSeeker()
+        public async Task<IEnumerable<JobSeekerEntity>> GetJobSeekers()
         {
             return await _context.JobSeeker.ToListAsync();
         }
