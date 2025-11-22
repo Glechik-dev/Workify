@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
+using System.IdentityModel.Tokens.Jwt;
 using Workify.Api.Contracts;
 using Workify.Application.DTO;
 using Workify.Application.Services;
@@ -97,12 +99,31 @@ namespace Workify.Api.Controllers
 
         [Route("log-out")]
         [HttpGet]
-        public IActionResult LogOut()
+        public async Task<IActionResult> LogOut()
         {
-            return Ok();
+            try 
+            {
+                string token = Request.Cookies["access_token"];
+                if (token == null)
+                    return Unauthorized("No cookie");
+                var handler = new JwtSecurityTokenHandler();
+                var jwt = handler.ReadJwtToken(token);
+
+                string userId = jwt.Claims.FirstOrDefault(c => c.Type == JwtRegisteredClaimNames.Sub).Value;
+                if (userId == null)
+                    return BadRequest("UserId claim not found");
+                Guid guidUserId = Guid.Parse(userId);
+                await _authService.LogOut(guidUserId);
+                Response.Cookies.Delete("access_token");
+                return Ok();
+            } 
+            catch(Exception ex) 
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
-        [Authorize]
+        [Authorize(Roles = "JobSeeker")]
         [Route("check")]
         [HttpGet]
         public IActionResult check()

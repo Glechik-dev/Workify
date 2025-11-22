@@ -51,7 +51,7 @@ namespace Workify.Application.Services
             {
                 try
                 {
-                    UserEntity? user = await _userRepository.FindUserByEmail(login.Email);
+                    UserEntity? user = await _userRepository.FindUserByEmailAndRole(login.Email);
                     if (user == null)
                     {
                         throw new UserNotExistsException();
@@ -62,10 +62,13 @@ namespace Workify.Application.Services
                         throw new PasswordDontMatchException();
                     }
 
-                    Tokens tokens = _jwtTokenService.GetTokens(new UserDTO { Id = user.Id, Name = user.FirstName, Email = user.Email });
-                    await _tokenRepository.UpdateToken(user.Token.Id, tokens.RefreshToken);
 
-                    return tokens;
+                    Tokens tokens = _jwtTokenService.GetTokens(new UserDTO { Id = user.Id, Name = user.FirstName, Email = user.Email }, user.UserRoles.First().Role.RoleName);
+                    TokenEntity token = TokenEntity.Create(tokens.RefreshToken);
+                    user.Token = token;
+
+
+                return tokens;
                 }
                 catch (Exception ex)
                 {
@@ -120,6 +123,19 @@ namespace Workify.Application.Services
                 }
             }
 
+            public async Task LogOut(Guid Id)
+            {
+                try
+                {
+                    TokenEntity tokenEntity = await _tokenRepository.FindTokenByUserId(Id);
+                    await _tokenRepository.DeleteToken(tokenEntity);
+                }
+                catch (Exception ex) 
+                {
+                    throw ex;
+                }
+            }
+
             private async Task CheckUserExistsAndPassword(RegistrationDTO registration)
             {
                 UserEntity? user = await _userRepository.FindUserByEmail(registration.Email);
@@ -141,7 +157,7 @@ namespace Workify.Application.Services
                 newUser.Password = hashPassword;
                 UserSettingsEntity userSettings = UserSettingsEntity.Create(false);
                 newUser.UserSettings = userSettings;
-                Tokens tokens = _jwtTokenService.GetTokens(new UserDTO { Id = newUser.Id, Name = newUser.FirstName, Email = newUser.Email });
+                Tokens tokens = _jwtTokenService.GetTokens(new UserDTO { Id = newUser.Id, Name = newUser.FirstName, Email = newUser.Email }, roleName);
                 TokenEntity token = TokenEntity.Create(tokens.RefreshToken);
                 newUser.Token = token;
                 RoleEntity role = await _roleRepository.FindRoleByName(roleName);

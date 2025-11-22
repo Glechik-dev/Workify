@@ -57,10 +57,17 @@ builder.Services.AddScoped<TokenRepository>();
 builder.Services.AddScoped<UserRoleRepository>();
 builder.Services.AddScoped<JobSeekerRepository >();
 builder.Services.AddScoped<UserRepository>();
+builder.Services.AddScoped<EmployerRepository>();
+builder.Services.AddScoped<EmployerSettingsRepository>();
+builder.Services.AddScoped<JobSeekerRepository>();
+builder.Services.AddScoped<JobSeekerSettingsRepository>();
+builder.Services.AddScoped<ResumeRepository>();
 
 builder.Services.AddScoped<JwtTokenService>();
 builder.Services.AddScoped<IPasswordHasher<UserEntity>, PasswordHasher<UserEntity>>();
 builder.Services.AddScoped<PasswordService>();
+builder.Services.AddScoped<ResumeService>();
+builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<AuthService>();
  
 

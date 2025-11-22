@@ -21,9 +21,12 @@ namespace Workify.Infrastructure.DBContext
         public DbSet<JobSeekerSettingsEntity> JobSeekerSettings { get; set; }
         public DbSet<EmployerEntity> Employer { get; set; }
         public DbSet<EmployerSettingsEntity> EmployerSettings { get; set; }
+        public DbSet<EmployerCompanyEntity> EmployerCompaniy { get; set; }
         public DbSet<TokenEntity> Token { get; set; }
         public DbSet<RoleEntity> Role { get; set; }
         public DbSet<UserRoleEntity> UserRole { get; set; }
+        public DbSet<VacancyEntity> Vacancy {  get; set; }
+        public DbSet<ResumeEntity> Resume { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -35,6 +38,14 @@ namespace Workify.Infrastructure.DBContext
             modelBuilder.Entity<JobSeekerEntity>().HasOne((e) => e.JobSeekerSettings).WithOne((e) => e.JobSeeker).HasForeignKey<JobSeekerSettingsEntity>((e) => e.JobSeekerId).IsRequired();
             modelBuilder.Entity<EmployerEntity>().HasOne((e) => e.EmployerSettings).WithOne((e) => e.Employer).HasForeignKey<EmployerSettingsEntity>((e) => e.EmployerId).IsRequired();
             modelBuilder.Entity<RoleEntity>().HasMany((e) => e.JobSeekerRoles).WithOne((e) => e.Role).HasForeignKey((e) => e.RoleId).IsRequired();
+            modelBuilder.Entity<EmployerEntity>().HasMany(e => e.Vacancies).WithOne(e => e.Author).HasForeignKey(e => e.AuthorId).IsRequired();
+            modelBuilder.Entity<EmployerEntity>().HasMany(e => e.LikedResume).WithMany(e => e.WhoLikes).UsingEntity(t => t.ToTable("EmployerLikedResume"));
+            modelBuilder.Entity<EmployerEntity>().HasMany(e => e.DislikedResume).WithMany(e => e.WhoDislikes).UsingEntity(t => t.ToTable("EmployerDislikedResume"));
+            modelBuilder.Entity<EmployerEntity>().HasOne(e => e.EmployerCompany).WithOne(e => e.Employer).HasForeignKey<EmployerCompanyEntity>(e => e.EmployerId).IsRequired();
+            modelBuilder.Entity<JobSeekerEntity>().HasOne(e => e.Resume).WithOne(e => e.Author).HasForeignKey<ResumeEntity>(e => e.AuthorId).IsRequired();
+            modelBuilder.Entity<JobSeekerEntity>().HasMany(e => e.LikedVacancy).WithMany(e => e.WhoLikes).UsingEntity(t => t.ToTable("JobSeekerLikedVacancies"));
+            modelBuilder.Entity<JobSeekerEntity>().HasMany(e => e.DislikedVacancy).WithMany(e => e.WhoDislikes).UsingEntity(t => t.ToTable("JobSeekerDislikedVacancies"));
+
 
             modelBuilder.Entity<RoleEntity>().HasData(
                 new RoleEntity { Id = Guid.NewGuid(), RoleName = "Admin" },

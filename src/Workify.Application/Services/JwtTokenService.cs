@@ -85,22 +85,31 @@ namespace Workify.Application.Services
             };
         }
 
-        public Tokens GetTokens(UserDTO user)
+        public Tokens GetTokens(UserDTO user, string role)
             {
-                string accessToken = GenerateAccessToken(user);
+                string accessToken = GenerateAccessToken(user, role);
                 string refreshToken = GenerateRefreshToken(user);
                 return new Tokens { AccessToken = accessToken, RefreshToken = refreshToken};
             }
 
-        public string GenerateAccessToken(UserDTO user)
+        public string GenerateAccessToken(UserDTO user, string role)
         {
-            var claims = new[]
+            var claims = new List<Claim>
             {
-            new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
-            new Claim(JwtRegisteredClaimNames.Name, user.Name),
-            new Claim(JwtRegisteredClaimNames.Email, user.Email),
-            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
-        };
+                new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
+                new Claim(JwtRegisteredClaimNames.Name, user.Name),
+                new Claim(JwtRegisteredClaimNames.Email, user.Email),
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+            };
+
+            if (role == "JobSeeker")
+            {
+                claims.Add(new Claim(ClaimTypes.Role, "JobSeeker"));
+            }
+            else if (role == "Employer")
+            {
+                claims.Add(new Claim(ClaimTypes.Role, "Employer"));
+            }
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["JwtConfig:AccessKey"]!));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
@@ -116,7 +125,7 @@ namespace Workify.Application.Services
 
         public string GenerateRefreshToken(UserDTO user)
         {
-            var claims = new[]
+            var claims = new List<Claim>
             {
         new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
         new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())

@@ -12,6 +12,12 @@ namespace Workify.Infrastructure.Repositories
             _context = context;
         }
 
+
+        public async Task<TokenEntity> FindTokenByUserId(Guid Id)
+        {
+            return await _context.Token.FirstOrDefaultAsync(x => x.UserId == Id);
+        }
+
         public async Task AddToken(TokenEntity token)
         {
             await _context.Token.AddAsync(token);
@@ -21,6 +27,12 @@ namespace Workify.Infrastructure.Repositories
         public async Task UpdateToken(Guid tokenId, string refreshToken)
         {
             await _context.Token.Where((entity) => entity.Id == tokenId).ExecuteUpdateAsync((b) => b.SetProperty((u) => u.RefreshToken, refreshToken));
+        }
+
+        public async Task DeleteToken(TokenEntity tokenEntity)
+        {
+            _context.Token.Remove(tokenEntity);
+            await _context.SaveChangesAsync();
         }
     }
 }
