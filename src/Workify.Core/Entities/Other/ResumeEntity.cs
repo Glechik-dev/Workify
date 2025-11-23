@@ -7,17 +7,18 @@ namespace Workify.Core.Entities.Other
 {
     public class ResumeEntity
     {
+        private ResumeEntity() {} 
+
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }
 
+        [Required]
+        public string Title { get; set; }
 
         [Required]
         public string Description { get; set; }
-
-        [Required]
-        public string Text { get; set; } 
 
         [NotMapped]
         public int LikeCount => WhoLikes.Count;
@@ -37,14 +38,29 @@ namespace Workify.Core.Entities.Other
 
         [Required]
         public string PhoneNumber {  get; set; }
+        public Guid CityId { get; set; }
+
+        [ForeignKey(nameof(CityId))]
+        public CityEntity City { get; set; }
 
         [Required]
-        public string City {  get; set; }
+        public int Age { get; set; }
+        public ICollection<EducationEntity> Education { get; set; } = new List<EducationEntity>();
+        public ICollection<LanguageSkillEntity> LanguageSkills { get; set; }
 
         [Required]
-        public string Age { get; set; }
+        public SallaryEntity Sallary { get; set; }
 
+        [Required]
+        public AdditionalEntity Additional { get; set; }
 
+        public ICollection<ExperienceEntity> Experiences { get; set; } = new List<ExperienceEntity>();
+        public ICollection<CourseEntity> Courses { get; set; } = new List<CourseEntity>();
+
+        static public ResumeEntity Create()
+        {
+            return new ResumeEntity();
+        }
 
     }
 }

@@ -21,8 +21,6 @@ namespace Workify.Core.Entities.Employer
         public Guid UserId { get; set; }
         public UserEntity User { get; set; } = default!;
 
-        public ICollection<VacancyEntity> Vacancies { get; set; } = new List<VacancyEntity>();
-
         public ICollection<ResumeEntity> LikedResume { get; set; } = new List<ResumeEntity>();
 
         public ICollection<ResumeEntity> DislikedResume { get; set; } = new List<ResumeEntity>();

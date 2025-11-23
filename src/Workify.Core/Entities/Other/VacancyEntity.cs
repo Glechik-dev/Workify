@@ -16,6 +16,12 @@ namespace Workify.Core.Entities.Other
 
         [Required]
         public string Description { get; set; }
+        [Required]
+        public OfferEntity Offer { get; set; }
+        public Guid CityId { get; set; }
+
+        [ForeignKey(nameof(CityId))]
+        public CityEntity City { get; set; }
 
         [Required]
         public string Text { get; set; }
@@ -30,10 +36,10 @@ namespace Workify.Core.Entities.Other
         public ICollection<JobSeekerEntity> WhoDislikes { get; set; } = new List<JobSeekerEntity>();
 
         [Required]
-        public Guid AuthorId { get; set; }
+        public Guid CompanyId { get; set; }
 
         [Required]
-        [ForeignKey(nameof(AuthorId))]
-        public EmployerEntity Author { get; set; }
+        [ForeignKey(nameof(CompanyId))]
+        public EmployerCompanyEntity Company { get; set; }
     }
 }

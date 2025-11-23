@@ -24,6 +24,8 @@ namespace Workify.Core.Entities.JobSeeker
 
         public ICollection<VacancyEntity> DislikedVacancy { get; set; } = new List<VacancyEntity>();
 
+        public OurSocialEntity OurSocial {  get; set; }
+
         static public JobSeekerEntity Create()
         {
             return new JobSeekerEntity();

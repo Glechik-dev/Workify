@@ -22,7 +22,7 @@ namespace Workify.Core.Entities.Other
         [Required]
         public string RoleName { get; set; }
 
-        public ICollection<UserRoleEntity> JobSeekerRoles { get; set; } = new List<UserRoleEntity>();
+        public ICollection<UserRoleEntity> UserRoles { get; set; } = new List<UserRoleEntity>();
 
         public static RoleEntity Create(string roleName)
         {

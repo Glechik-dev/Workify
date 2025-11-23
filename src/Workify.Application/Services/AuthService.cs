@@ -99,7 +99,7 @@ namespace Workify.Application.Services
                 }
             }
 
-            public async Task<Tokens?> RegistrationEmployert(RegistrationDTO registration)
+            public async Task<Tokens?> RegistrationEmployer(RegistrationDTO registration)
             {
                 try
                 {
@@ -109,7 +109,6 @@ namespace Workify.Application.Services
                     EmployerSettingsEntity employerSettings = EmployerSettingsEntity.Create();
                     employer.EmployerSettings = employerSettings;
                     TokensAndUser tokensAndUser = await CreateAndGetUser(registration, "Employer");
-
                     employer.User = tokensAndUser.User;
                     await _employerRepository.AddEmployer(employer);
 

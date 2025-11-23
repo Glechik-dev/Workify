@@ -20,5 +20,10 @@ namespace Workify.Application.Services
         {
             return await _resumeRepository.GetResumesByPage(page, pageSize);
         }
+
+        public async Task CreateResume(ResumeDTO resumeDto)
+        {
+            await _resumeRepository.CreateResume(resumeDto);
+        }
     }
 }
